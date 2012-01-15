@@ -93,36 +93,27 @@ var Singleton = (function(){
 	var instance;
 	this.init = function(){
 		i = {
-			sp:null,
 			dc:null,
+            eq:null,
             width:0,
             heigth:0,
-			dTheta: Math.PI*2/90,
-			step:function(dt){
-				this.sp.rotateStep(this.dTheta*dt/1000);
-			},
+            color:"red",
 			render:function(){
-				this.dc.fillStyle="#ffffff";
-				this.dc.fillRect(0,0,this.width,this.height);
-				this.sp.draw(this.dc);
-			},
-			gameloop:function(){
-				this.step(1000);
-				this.render();
+                this.dc.fillStyle="#FFFFFF";
+                this.dc.fillRect(0,0,this.width,this.height);
+                this.eq.render(this.dc,this.width/2,this.height/2,200,20,this.color);
 			},
             changeR2:function(value){
-                this.reset();
-                this.sp.smallcircle.radius = value;
+                this.eq.r2 = value;
+                this.render();
             },
             changeR1:function(value){
-                this.reset();
-                this.sp.bigcircle.radius = value;
+                this.eq.r1 = value;
+                this.render();        
             },
-            reset:function(){
-                this.sp.smallcircle.rot=0;
-            },
-            changeDTheta:function(deg){
-                this.dTheta = deg*Math.PI*2/360;
+            changeP:function(value){
+                this.eq.p = value;
+                this.render();
             }
 
 		    };
@@ -130,8 +121,7 @@ var Singleton = (function(){
 		i.dc = canvas.getContext("2d");
         i.width = canvas.width;
         i.height = canvas.height;
-		i.sp = new Spirograph(i.width/2,i.height/2,75,30);
-		i.sp.rotateStep(Math.PI/2);
+		i.eq = new SpirographEq(100,25,50);
 		return i;
 	}
 	
@@ -148,21 +138,12 @@ var Singleton = (function(){
 
 function draw(){
 	inst = Singleton.getInstance();
-	var a = function(){
-		inst.step(1000);
-		inst.render();
-	}
 
     document.getElementById("radioMenor").setAttribute("onchange","javascript:inst.changeR2(this.value)");
     document.getElementById("radioMayor").setAttribute("onchange","javascript:inst.changeR1(this.value)");
-    document.getElementById("velocidad").setAttribute("onchange","javascript:inst.changeDTheta(this.value)");
-
-	setInterval(a,50);
-
-    dc2 = document.getElementById("canv2").getContext("2d");
-    eq = new SpirographEq(175,20,30);
-    eq.render(dc2,200,200,200,10,"red");
+    document.getElementById("velocidad").setAttribute("onchange","javascript:inst.changeP(this.value)");
     
+    inst.render();    
 
 }
 
