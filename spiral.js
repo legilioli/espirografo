@@ -27,8 +27,11 @@ function Spirograph(x,y,r1,r2){
 
 	this.x = x;
 	this.y = y;
+    this.r1 = r1;
+    this.r2 = r2;
 	this.bigcircle = new Circle(x,y,r1,0);
 	this.smallcircle = new Circle(0,0,r2,0);
+    this.eq = new SpirographEq(r1,r2,r2*1.2);
 
 	this.draw = function(dc){
 			this.bigcircle.draw(dc);
@@ -46,6 +49,43 @@ function Spirograph(x,y,r1,r2){
 			yc = this.y + Math.sin(angle) * radius;
 			this.smallcircle.setPos(xc,yc);
 	}
+}
+
+
+function SpirographEq(r1,r2,p){
+
+    this.r1=r1;
+    this.r2=r2;
+    this.p=p;
+
+    this.calculatePoint = function(t){
+        var r1 = this.r1;
+        var r2 = this.r2;
+        var p = this.p;
+        point = 
+        {
+            'x':Math.cos(t)*(r1-r2) + Math.cos(t*(r1-r2)/r2)*p,
+            'y':Math.sin(t)*(r1-r2) - Math.sin(t*(r1-r2)/r2)*p
+        }
+        return point;
+    };
+
+    this.render = function(dc,x,y,steps,n,color){
+        var dt = Math.PI*2 / steps;
+        dc.save();
+        dc.translate(x,y);
+        dc.lineWidth = 2;
+        dc.beginPath();
+        if ( color == null) color = "black";
+        dc.strokeStyle = color;
+        for ( i = 0; i < steps*n; i++){
+            var point = this.calculatePoint(dt*i);
+            dc.lineTo(point.x,point.y);
+        }
+        dc.stroke();
+        dc.restore();
+    }
+
 }
 
 var Singleton = (function(){
@@ -90,7 +130,7 @@ var Singleton = (function(){
 		i.dc = canvas.getContext("2d");
         i.width = canvas.width;
         i.height = canvas.height;
-		i.sp = new Spirograph(i.width/2,i.height/2,75,10);
+		i.sp = new Spirograph(i.width/2,i.height/2,75,30);
 		i.sp.rotateStep(Math.PI/2);
 		return i;
 	}
@@ -119,4 +159,10 @@ function draw(){
 
 	setInterval(a,50);
 
+    dc2 = document.getElementById("canv2").getContext("2d");
+    eq = new SpirographEq(175,20,30);
+    eq.render(dc2,200,200,200,10,"red");
+    
+
 }
+
