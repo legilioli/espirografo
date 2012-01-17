@@ -3,15 +3,17 @@
 	<head>
 	<script language="javascript" src="spiral.js"></script>
 	</head>
-	<body onLoad="javascript:draw()">
-	<canvas width="400" height="400" id="canv1">Este es el canvas</canvas><br/>
+	<body>
+	<canvas width="400" height="400" id="canv1">Este es el canvas</canvas>
+    <a href="#imagen"><img id="canvasImg" alt="espiral" style="display:none;"></a><br/>
     <label for="radioMenor">Radio menor</label>
-    <input id="radioMenor" type="range" min="10" max="70" style="width:500px;"></input> <br/>
+    <input id="radioMenor" type="range" min="-70" max="70" style="width:500px;" value="0"></input> <br/>
     <label for="radioMayor">Radio mayor</label>
-    <input id="radioMayor" type="range" min="20" max="175" style="width:500px;"></input> <br/>
+    <input id="radioMayor" type="range" min="10" max="200" style="width:500px;" value="100"></input> <br/>
     <label for="speed">Distancia del trazo</label>
-    <input id="velocidad" type="range" min="1" max="360" style="width:500px;"></input> <br/>
-	<canvas width="400" height="400" id="canv2">Este es el canvas2</canvas><br/>
-
+    <input id="trazo" type="range" min="-100" max="100" style="width:500px;" value="80"></input> <br/>
+    <label for="speed">Resolucion</label>
+    <input id="resolucion" type="range" min="200" max="2000" step="200" style="width:500px;" value="2000"></input> <br/>
+    <input type="button" id="download" value="Guardar!"/>
 	</body>
 </html>
