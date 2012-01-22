@@ -27,7 +27,7 @@ function SpirographEq(r1,r2,p){
         dc.lineWidth = 2;
         dc.beginPath();
         if ( color == null) color = "black";
-        dc.strokeStyle = color;
+        dc.strokeStyle = colors[Math.floor((Math.random()*colors.length))];//color;
         for ( i = 0; i <= steps*nturns; i++){
             var point = this.calculatePoint(dt*i);
             dc.lineTo(point.x,point.y);
@@ -48,7 +48,7 @@ var Singleton = (function(){
             eq:null,
             width:0,
             heigth:0,
-            color:"red",
+            color:"orange",
             res:2000,
 			render:function(){
                 this.dc.clearRect(0,0,this.width,this.height);
@@ -119,3 +119,5 @@ function gcd(x, y) {
 	}
 	return x;
 }
+
+colors = ["red","green","blue","yellow","orange","fuchsia","maroon","navy","olive","purple","teal","aqua","black"];

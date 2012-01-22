@@ -3,17 +3,18 @@
 	<head>
 	<script language="javascript" src="spiral.js"></script>
 	</head>
-	<body>
-	<canvas width="400" height="400" id="canv1">Este es el canvas</canvas>
+	<body style="font-family:arial, tahoma;">
+	<canvas width="400" height="400" id="canv1" style="display:inline; border-radius:15px;border:3px solid gray; box-shadow:5px 5px 5px gray;">Este es el canvas</canvas>
     <a href="#imagen"><img id="canvasImg" alt="espiral" style="display:none;"></a><br/>
-    <label for="radioMenor">Radio menor</label>
-    <input id="radioMenor" type="range" min="-70" max="70" style="width:500px;" value="0"></input> <br/>
-    <label for="radioMayor">Radio mayor</label>
-    <input id="radioMayor" type="range" min="10" max="200" style="width:500px;" value="100"></input> <br/>
-    <label for="speed">Distancia del trazo</label>
-    <input id="trazo" type="range" min="-100" max="100" style="width:500px;" value="80"></input> <br/>
-    <label for="speed">Resolucion</label>
-    <input id="resolucion" type="range" min="200" max="2000" step="200" style="width:500px;" value="2000"></input> <br/>
-    <input type="button" id="download" value="Guardar!"/>
+    <div id="controls" >
+        <label for="radioMenor">Radio menor</label>
+        <input id="radioMenor" type="range" min="-70" max="70" style="width:500px;" value="0"></input> <br/>
+        <label for="radioMayor">Radio mayor</label>
+        <input id="radioMayor" type="range" min="10" max="200" style="width:500px;" value="100"></input> <br/>
+        <label for="speed">Distancia del trazo</label>
+        <input id="trazo" type="range" min="-100" max="100" style="width:500px;" value="80"></input> <br/>
+        <label for="speed">Resolucion</label>
+        <input id="resolucion" type="range" min="100" max="1000" step="50" style="width:500px;" value="2000"></input> <br/>
+        <input type="button" id="download" value="Guardar!"/>
 	</body>
 </html>
