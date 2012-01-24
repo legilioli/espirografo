@@ -22,11 +22,11 @@ function SpirographEq(r1,r2,p){
     this.render = function(dc,x,y,steps,color){
         nturns = Math.abs(this.r2) / gcd(this.r1,Math.abs(this.r2)) 
         var dt = Math.PI*2 / steps;
+        dc.lineWidth = 1;
         dc.save();
         dc.translate(x,y);
-        dc.lineWidth = 2;
         dc.beginPath();
-        if ( color == null) color = "black";
+//        if ( color == null) color = "black";
         dc.strokeStyle = colors[Math.floor((Math.random()*colors.length))];//color;
         for ( i = 0; i <= steps*nturns; i++){
             var point = this.calculatePoint(dt*i);
@@ -51,35 +51,29 @@ var Singleton = (function(){
             color:"orange",
             res:2000,
 			render:function(){
-                this.dc.clearRect(0,0,this.width,this.height);
+//                this.dc.clearRect(0,0,this.width,this.height);
+                this.dc.fillStyle = "#000000";
+
                 this.eq.render(this.dc,this.width/2,this.height/2,this.res,this.color);
 			},
-            changeR2:function(value){
-                this.eq.r2 = value;
-                this.update();
-            },
-            changeR1:function(value){
-                this.eq.r1 = value;
-                this.update();        
-            },
-            changeP:function(value){
-                this.eq.p = value;
-                this.update();
-            },
-            changeRes:function(value){
-                this.res = value;
-                this.update();
-            },
             update:function(){
-                    this.render();
+                //this.dc.fillStyle = "#000000";
+                this.dc.clearRect(0,0,this.width,this.height);
+                for (var i = 0; i<3; i++){
+                    var n = getRandomSpiralValues();
+                    this.eq.r1 = n.r1;
+                    this.eq.r2 = n.r2;
+                    this.eq.d = n.d;
+                    this.eq.render(this.dc,this.width/2,this.height/2,this.res);
+                }
+
             },
             save:function(){
                     var dataURL = this.canvas.toDataURL();
-                    document.getElementById("canvasImg").src = dataURL;
+                    document.getElementById("canvasimg").src = dataURL;
                     window.open(dataURL);
             }
 		    };
-
         i.canvas = document.getElementById("canv1");
 		i.dc = i.canvas.getContext("2d");
         i.width = i.canvas.width;
@@ -99,15 +93,25 @@ var Singleton = (function(){
 })();
 
 
+
+function getRandomIntValue(from,to){
+    return Math.floor(from+Math.random()*to);
+}
+
+function getRandomSpiralValues(){
+    return {
+        'r1':getRandomIntValue(20,200),
+        'r2':getRandomIntValue(20,100),
+        'd':getRandomIntValue(20,200),
+        'res':getRandomIntValue(50,500),
+    }
+}
+
+
 window.onload = function(){
 	inst = Singleton.getInstance();
-    document.getElementById("radioMenor").setAttribute("onchange","javascript:inst.changeR2(this.value)");
-    document.getElementById("radioMayor").setAttribute("onchange","javascript:inst.changeR1(this.value)");
-    document.getElementById("trazo").setAttribute("onchange","javascript:inst.changeP(this.value)");
-    document.getElementById("resolucion").setAttribute("onchange","javascript:inst.changeRes(this.value)");
-    document.getElementById("resolucion").setAttribute("onchange","javascript:inst.changeRes(this.value)");
-    document.getElementById("download").setAttribute("onclick","javascript:inst.save()");
-    inst.update();    
+    document.getElementById("canvasimg").setAttribute("onclick","inst.save()");   
+    inst.update();
 
 }
 
