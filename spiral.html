@@ -4,13 +4,17 @@
 	<script language="javascript" src="spiral.js"></script>
 	</head>
 	<body style="font-family:arial, tahoma; ">
+
     <div style="  position: fixed;
   top: 50%;
   left: 50%;
   margin-top: -300px;
   margin-left: -300px;">
     	<canvas width="600" height="600" id="canv1" style="display:inline; border-radius:15px;border:3px solid gray; box-shadow:5px 5px 5px gray;">Este es el canvas</canvas>
-<input type="button" value="Descargar" onclick="javascript:save()" width="600" height="600"/>
-    <img id="canvasimg" style=""display:none/>
     </div>
+<p>Click en la imagen para generar un nuevo espiral.</p>
+<input id="descarga" type="button" value="Descargar"/>
+    <img id="canvasimg" style="display:none"/>
+
+
 </html>

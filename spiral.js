@@ -103,14 +103,16 @@ function getRandomSpiralValues(){
         'r1':getRandomIntValue(20,200),
         'r2':getRandomIntValue(20,100),
         'd':getRandomIntValue(20,200),
-        'res':getRandomIntValue(50,500),
+        'res':getRandomIntValue(50,250),
     }
 }
 
 
 window.onload = function(){
 	inst = Singleton.getInstance();
-    document.getElementById("canvasimg").setAttribute("onclick","inst.save()");   
+    document.getElementById("descarga").setAttribute("onclick","inst.save()");
+    document.getElementById("canv1").setAttribute("onclick","inst.update()");
+
     inst.update();
 
 }
